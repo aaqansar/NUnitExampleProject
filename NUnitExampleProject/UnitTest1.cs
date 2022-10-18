@@ -16,7 +16,7 @@ namespace NUnitExampleProject
         }
 
         [Test]
-        public void Test1()
+        public void TestBasic()
         {
             //driver.Manage().Timeouts().SetPageLoadTimeout=TimeSpan.FromSeconds(500);
             driver.Navigate().GoToUrl("https://www.google.com");

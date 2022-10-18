@@ -23,7 +23,7 @@ namespace NUnitExampleProject
         }
 
         [Test]
-        public void Test1()
+        public void TestWaitExample()
         {
             
             driver.Navigate().GoToUrl("https://www.google.com");

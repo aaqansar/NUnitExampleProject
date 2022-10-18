@@ -22,7 +22,7 @@ namespace NUnitExampleProject
         }
 
         [Test]
-        public void Test1()
+        public void TestHyperlink()
         {
             int i = 0;
             //driver.Manage().Timeouts().SetPageLoadTimeout=TimeSpan.FromSeconds(500);
@@ -44,7 +44,7 @@ namespace NUnitExampleProject
                 }
                 else { 
                 var k = IsLinkWorking(hrefUrl);
-                if(k!= null)
+                if(k != null)
                 {
                     if(k==true)
                     {
@@ -77,7 +77,6 @@ namespace NUnitExampleProject
                         response.Dispose();
                         return true;
                     }
-                    //Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.OK));
                     else
                     {
                         response.Dispose();
@@ -87,10 +86,7 @@ namespace NUnitExampleProject
                 else
                 {
                     return false;
-                }
-                //HttpWebResponse response = (HttpWebResponse)request.GetResponse();
-                
-               
+                }  
             }
                
         }

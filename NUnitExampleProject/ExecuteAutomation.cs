@@ -207,7 +207,7 @@ namespace NUnitExampleProject
 
         }
 
-            [TearDown]
+        [TearDown]
         public void close_Browser()
         {
             PropertiesCollections.driver.Quit();

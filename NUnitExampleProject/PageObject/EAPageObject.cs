@@ -1,4 +1,5 @@
-﻿using OpenQA.Selenium;
+﻿using NUnitExampleProject.Utilities;
+using OpenQA.Selenium;
 using SeleniumExtras.PageObjects;
 using System;
 using System.Collections.Generic;
@@ -6,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NUnitExampleProject
+namespace NUnitExampleProject.PageObject
 {
 
     class EAPageObject
@@ -14,11 +15,11 @@ namespace NUnitExampleProject
         // Constructor for Page
         public EAPageObject()
         {
-            PageFactory.InitElements(PropertiesCollections.driver, this);               
+            PageFactory.InitElements(PropertiesCollections.driver, this);
         }
 
         //Page Factory Logic
-        [FindsBy(How=How.Id,Using="TitleId")]
+        [FindsBy(How = How.Id, Using = "TitleId")]
         public IWebElement ddlTitleId { get; set; }
 
         [FindsBy(How = How.Name, Using = "Initial")]
@@ -45,32 +46,32 @@ namespace NUnitExampleProject
         [FindsBy(How = How.Name, Using = "generate")]
         public IWebElement btnJavaScriptAlert { get; set; }
 
-        
 
-        public void FillUserForm(string initial, string firstname, string middlename,string ddlvalue)
+
+        public void FillUserForm(string initial, string firstname, string middlename, string ddlvalue)
         {
             // Calling via Custom Methods
-            SeleniumSetMethods.SelectDropdown(ddlTitleId, ddlvalue);
-            SeleniumSetMethods.EnterText(txtInitial, initial);
+            ddlTitleId.SelectDropdown(ddlvalue);
+            txtInitial.EnterText(initial);
             //Can also be called via extended methods
             txtFirstName.EnterText(firstname);
             PropertiesCollections.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(20);
             //SeleniumSetMethods.EnterText(txtFirstName, firstname);
-            SeleniumSetMethods.EnterText(txtMiddleName, middlename);
+            txtMiddleName.EnterText(middlename);
         }
 
         public string GetTextFromFirstTextBox()
         {
-            return SeleniumGetMethods.GetText(txtFirstName);
+            return txtFirstName.GetText();
         }
         public string GetTextFromDDLTitle()
         {
-            return SeleniumGetMethods.GetTextFromDDL(ddlTitleId);
+            return ddlTitleId.GetTextFromDDL();
         }
 
         public void CheckMarkLanguageByClick()
         {
-             SeleniumSetMethods.DoClick(checkboxLanguage);
+            checkboxLanguage.DoClick();
         }
 
         public string GetCurrentWindow()
@@ -85,19 +86,19 @@ namespace NUnitExampleProject
 
         public void CheckMarkLanguageByMouseClick()
         {
-             SeleniumSetMethods.MouseClick(checkboxLanguage, PropertiesCollections.driver);
-             SeleniumSetMethods.DoClick(radioButtonGender);
-             SeleniumSetMethods.DoClick(btnSave);
+            checkboxLanguage.MouseClick(PropertiesCollections.driver);
+            radioButtonGender.DoClick();
+            btnSave.DoClick();
         }
 
         public void HtmlPopupClick()
         {
-            SeleniumSetMethods.DoClick(htmlPopupLink);
+            htmlPopupLink.DoClick();
         }
 
         public void JavaScriptPopupClick()
         {
-            SeleniumSetMethods.DoClick(btnJavaScriptAlert);
+            btnJavaScriptAlert.DoClick();
         }
 
         public bool SwitchWindowMethod(string windowName)
@@ -105,7 +106,7 @@ namespace NUnitExampleProject
             return SeleniumSetMethods.SwitchWindow(windowName);
         }
 
-        public string GetTextFromAlertMethod() 
+        public string GetTextFromAlertMethod()
         {
             return SeleniumGetMethods.GetAlertText();
         }

@@ -8,14 +8,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NUnitExampleProject
+namespace NUnitExampleProject.Utilities
 {
     class ExcelLib
     {
         private static DataTable ExcelToDataTable(string fileName)
         {
             //Setting Encoding for System
-            System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
+            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
 
             //open file and returns as Stream
             FileStream stream = File.Open(fileName, FileMode.Open, FileAccess.Read);
@@ -40,12 +40,12 @@ namespace NUnitExampleProject
 
             //Store it in DataTable
             DataTable resultTable = table["Sheet1"];
-            
+
             stream.Dispose();
             //return
             return resultTable;
         }
-       
+
         static List<Datacollection> dataCol = new List<Datacollection>();
 
 

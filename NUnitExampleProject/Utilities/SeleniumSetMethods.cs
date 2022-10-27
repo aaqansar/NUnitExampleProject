@@ -7,12 +7,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NUnitExampleProject
+namespace NUnitExampleProject.Utilities
 {
-    
+
     public static class SeleniumSetMethods
     {
-        
+
         //Enter Text
         public static void EnterText(this IWebElement element, string elementvalue)
         {
@@ -26,8 +26,8 @@ namespace NUnitExampleProject
         }
 
         // Mouse Click
-        public static void MouseClick(this IWebElement element,IWebDriver driver)
-        { 
+        public static void MouseClick(this IWebElement element, IWebDriver driver)
+        {
             Actions a = new Actions(driver);
             a.Click(element).Build().Perform();
             Console.WriteLine("Mouse Click Worked");
@@ -37,7 +37,7 @@ namespace NUnitExampleProject
         public static void MouseDragAndDrop(this IWebElement pickElement, IWebElement dropElement, IWebDriver driver)
         {
             Actions a = new Actions(driver);
-            a.DragAndDrop(pickElement,dropElement)
+            a.DragAndDrop(pickElement, dropElement)
            .Build().Perform();
             Console.WriteLine("Mouse Drag&Drop Worked");
         }

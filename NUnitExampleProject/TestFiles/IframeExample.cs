@@ -1,4 +1,6 @@
-﻿using OpenQA.Selenium;
+﻿using NUnitExampleProject.PageObject;
+using NUnitExampleProject.Utilities;
+using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using System;
 using System.Collections.Generic;
@@ -6,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NUnitExampleProject
+namespace NUnitExampleProject.TestFiles
 {
     internal class IframeExample
     {
@@ -35,17 +37,17 @@ namespace NUnitExampleProject
                 //Identify the iframes
                 int size = ff.GetAllIframes();
 
-                Console.WriteLine("Total Number of iFrames {0}",size);
+                Console.WriteLine("Total Number of iFrames {0}", size);
                 for (int i = 0; i < size; i++)
                 {
                     PropertiesCollections.driver.SwitchTo().Frame(i);
                     int total = ff.GetAllImageInIframes();
-                    Console.WriteLine("Total Number of Image in iFrame {0} and it's an iteration {1}", total,i);
+                    Console.WriteLine("Total Number of Image in iFrame {0} and it's an iteration {1}", total, i);
                     PropertiesCollections.driver.SwitchTo().DefaultContent();
                 }
             }
 
-    
+
             finally
             {
                 PropertiesCollections.driver.Dispose();

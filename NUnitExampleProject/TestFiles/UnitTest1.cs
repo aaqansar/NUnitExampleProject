@@ -3,7 +3,7 @@ using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.WaitHelpers;
 
-namespace NUnitExampleProject
+namespace NUnitExampleProject.TestFiles
 {
     public class Tests
     {
@@ -21,7 +21,7 @@ namespace NUnitExampleProject
             //driver.Manage().Timeouts().SetPageLoadTimeout=TimeSpan.FromSeconds(500);
             driver.Navigate().GoToUrl("https://www.google.com");
 
-            driver.Manage().Timeouts().ImplicitWait= TimeSpan.FromSeconds(20);
+            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(20);
 
             IWebElement searchText = driver.FindElement(By.CssSelector("[name = 'q']"));
 
@@ -29,20 +29,20 @@ namespace NUnitExampleProject
 
             //IWebElement searchText2 = driver.FindElement(By.XPath("//input[@title='Search']"));
 
-            searchText.SendKeys("LambdaTest" +Keys.Enter);
+            searchText.SendKeys("LambdaTest" + Keys.Enter);
 
             driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(20);
 
-            String TargetPath = "//h3[.='LambdaTest: Most Powerful Cross Browser Testing Tool Online']";
+            string TargetPath = "//h3[.='LambdaTest: Most Powerful Cross Browser Testing Tool Online']";
 
             WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(20));
 
 
-            IWebElement SearchResult = wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementExists(By.XPath(TargetPath)));
+            IWebElement SearchResult = wait.Until(ExpectedConditions.ElementExists(By.XPath(TargetPath)));
 
             SearchResult.Click();
 
-            System.Threading.Thread.Sleep(6000);
+            Thread.Sleep(6000);
 
             Console.WriteLine("Test Passed");
         }
@@ -53,5 +53,5 @@ namespace NUnitExampleProject
             driver.Quit();
         }
     }
-    
+
 }

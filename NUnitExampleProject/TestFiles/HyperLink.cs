@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using OpenQA.Selenium.DevTools.V102.Page;
 using System.Net;
 
-namespace NUnitExampleProject
+namespace NUnitExampleProject.TestFiles
 {
     internal class HyperLink
     {
@@ -33,45 +33,46 @@ namespace NUnitExampleProject
             IList<IWebElement> le = driver.FindElements(By.TagName("a"));
             foreach (IWebElement ele in le)
             {
-                
-                
+
+
                 Console.WriteLine(ele.Text);
                 string hrefUrl = ele.GetAttribute("href");
                 Console.WriteLine(hrefUrl);
                 if (hrefUrl.Contains("tel") || hrefUrl.Contains("email") || hrefUrl.Contains("@"))
-                { 
-                
-                }
-                else { 
-                var k = IsLinkWorking(hrefUrl);
-                if(k != null)
                 {
-                    if(k==true)
+
+                }
+                else
+                {
+                    var k = IsLinkWorking(hrefUrl);
+                    if (k != null)
                     {
-                        Console.WriteLine(hrefUrl + "This is valid URL as response came "+k);
-                    }
+                        if (k == true)
+                        {
+                            Console.WriteLine(hrefUrl + "This is valid URL as response came " + k);
+                        }
                         else
                         {
                             Console.WriteLine(hrefUrl + "This is invalid URL as response came " + k);
                         }
-                }
-                else
-                {
-                    Console.WriteLine("Exception");
-                }
+                    }
+                    else
+                    {
+                        Console.WriteLine("Exception");
+                    }
                 }
             }
 
 
 
             bool IsLinkWorking(string url)
-             {
-                
+            {
+
                 var webclient = new HttpClient();
                 webclient.Timeout = TimeSpan.FromSeconds(30);
                 if (!url.StartsWith("tel"))
                 {
-                var  response = webclient.GetAsync(url).Result;
+                    var response = webclient.GetAsync(url).Result;
                     if (response.StatusCode == HttpStatusCode.OK)
                     {
                         response.Dispose();
@@ -86,9 +87,9 @@ namespace NUnitExampleProject
                 else
                 {
                     return false;
-                }  
+                }
             }
-               
+
         }
 
         [TearDown]

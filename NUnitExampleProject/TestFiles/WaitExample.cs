@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NUnitExampleProject
+namespace NUnitExampleProject.TestFiles
 {
     internal class WaitExample
     {
@@ -25,15 +25,15 @@ namespace NUnitExampleProject
         [Test]
         public void TestWaitExample()
         {
-            
+
             driver.Navigate().GoToUrl("https://www.google.com");
             now = DateTime.Now;
             StartTime = now.Second;
             //driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(30);
-            WebDriverWait w = new WebDriverWait(driver,TimeSpan.FromSeconds(10));
+            WebDriverWait w = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
             w.Until(ExpectedConditions.ElementExists(By.CssSelector("[name = 'q']")));
 
-            Console.WriteLine("NOW: " + now + "|Converted Start Time| "+ StartTime);
+            Console.WriteLine("NOW: " + now + "|Converted Start Time| " + StartTime);
             IWebElement searchText = driver.FindElement(By.CssSelector("[name = 'q']"));
 
             //driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
@@ -48,7 +48,7 @@ namespace NUnitExampleProject
             DateTime now1 = DateTime.Now;
             EndTime = now1.Second;
             Console.WriteLine("NOW: " + now + "|Converted End Time| " + EndTime);
-            Console.WriteLine("diff: " + (EndTime-StartTime));
+            Console.WriteLine("diff: " + (EndTime - StartTime));
             driver.Quit();
         }
     }

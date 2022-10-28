@@ -1,4 +1,5 @@
-﻿using OpenQA.Selenium;
+﻿using NUnitExampleProject.Utilities;
+using OpenQA.Selenium;
 using SeleniumExtras.PageObjects;
 using System;
 using System.Collections.Generic;
@@ -6,11 +7,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NUnitExampleProject
+namespace NUnitExampleProject.PageObject
 {
     internal class LoginPageObject
     {
-       
+
         // Constructor for Page
         public LoginPageObject()
         {
@@ -30,13 +31,13 @@ namespace NUnitExampleProject
         public EAPageObject Login(string userName, string password)
         {
             // Calling via Custom Methods
-            SeleniumSetMethods.EnterText(txtUserName, userName);
-            SeleniumSetMethods.EnterText(txtPassword, password);
+            txtUserName.EnterText(userName);
+            txtPassword.EnterText(password);
             PropertiesCollections.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(20);
-            SeleniumSetMethods.DoClick(btnLogin);
+            btnLogin.DoClick();
 
             //Return the page object
-            return  new EAPageObject();
+            return new EAPageObject();
         }
     }
 

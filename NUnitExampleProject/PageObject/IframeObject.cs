@@ -1,4 +1,5 @@
-﻿using OpenQA.Selenium;
+﻿using NUnitExampleProject.Utilities;
+using OpenQA.Selenium;
 using SeleniumExtras.PageObjects;
 using System;
 using System.Collections.Generic;
@@ -6,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NUnitExampleProject
+namespace NUnitExampleProject.PageObject
 {
     internal class IframeObject
     {

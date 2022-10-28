@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using NUnitExampleProject.Model;
+using NUnitExampleProject.Model.JsonModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -11,9 +14,10 @@ namespace NUnitExampleProject.GetEndPoint
     internal class TestGetEndPoint
     {
         private string getUrl = "https://reqres.in/api/users/2";
+        private string getAllUserUrl = "https://reqres.in/api/users";
         HttpClient? client;
 
-       
+
 
         [Test]
         public void TestApiByStringURL()
@@ -32,24 +36,22 @@ namespace NUnitExampleProject.GetEndPoint
             HttpRequestHeaders header = client1.DefaultRequestHeaders;
 
             header.Accept.Add(md);
-            
-           // header.Add("Accept", "application/xml");
+
+            // header.Add("Accept", "application/xml");
 
             Uri uri = new Uri(getUrl);
 
-            
-
             //Response Message
-            Task<HttpResponseMessage> httpResponse= client1.GetAsync(uri);
+            Task<HttpResponseMessage> httpResponse = client1.GetAsync(uri);
 
             HttpResponseMessage responseMessage = httpResponse.Result;
 
             Console.WriteLine(responseMessage.ToString());
-            
-            //Status Code
-            HttpStatusCode statusCode= responseMessage.StatusCode;
 
-            Console.WriteLine("Status --> {0}",statusCode);
+            //Status Code
+            HttpStatusCode statusCode = responseMessage.StatusCode;
+
+            Console.WriteLine("Status --> {0}", statusCode);
 
             Console.WriteLine("Status Code --> {0}", (int)statusCode);
 
@@ -58,9 +60,9 @@ namespace NUnitExampleProject.GetEndPoint
 
             Task<string> responseBody = responseContent.ReadAsStringAsync();
 
-            string data=responseBody.Result;
+            string data = responseBody.Result;
 
-            Console.WriteLine("Response \n"+ data);
+            Console.WriteLine("Response \n" + data);
 
             client1.Dispose();
         }
@@ -74,7 +76,7 @@ namespace NUnitExampleProject.GetEndPoint
             rm.Headers.Add("Accept", "application/json");
 
             HttpClient hc = new HttpClient();
-            Task<HttpResponseMessage> hr= hc.SendAsync(rm);
+            Task<HttpResponseMessage> hr = hc.SendAsync(rm);
 
             HttpResponseMessage responseMessage = hr.Result;
 
@@ -96,6 +98,143 @@ namespace NUnitExampleProject.GetEndPoint
 
             Console.WriteLine("Response \n" + data);
 
+            hc.Dispose();
+        }
+
+        [Test]
+        public void TestApiResponseByModel()
+        {
+            HttpRequestMessage rm = new HttpRequestMessage();
+            rm.RequestUri = new Uri(getUrl);
+            rm.Method = HttpMethod.Get;
+            rm.Headers.Add("Accept", "application/json");
+
+            HttpClient hc = new HttpClient();
+            Task<HttpResponseMessage> hr = hc.SendAsync(rm);
+
+            HttpResponseMessage responseMessage = hr.Result;
+
+            Console.WriteLine(responseMessage.ToString());
+
+            //Status Code
+            HttpStatusCode statusCode = responseMessage.StatusCode;
+
+            Console.WriteLine("Status --> {0}", statusCode);
+
+            Console.WriteLine("Status Code --> {0}", (int)statusCode);
+
+            //Response Data
+            HttpContent responseContent = responseMessage.Content;
+
+            Task<string> responseBody = responseContent.ReadAsStringAsync();
+
+            string data = responseBody.Result;
+
+            RestResponse rr= new RestResponse((int)statusCode, data);
+
+            Console.WriteLine(rr.ToString());
+
+            hc.Dispose();
+        }
+
+        [Test]
+        public void TestDeserializeByJsonResponse()
+        {
+            HttpRequestMessage rm = new HttpRequestMessage();
+            rm.RequestUri = new Uri(getUrl);
+            rm.Method = HttpMethod.Get;
+            rm.Headers.Add("Accept", "application/json");
+
+            HttpClient hc = new HttpClient();
+            Task<HttpResponseMessage> hr = hc.SendAsync(rm);
+
+            HttpResponseMessage responseMessage = hr.Result;
+
+            Console.WriteLine(responseMessage.ToString());
+
+            //Status Code
+            HttpStatusCode statusCode = responseMessage.StatusCode;
+
+            Console.WriteLine("Status --> {0}", statusCode);
+
+            Console.WriteLine("Status Code --> {0}", (int)statusCode);
+
+            //Response Data
+            HttpContent responseContent = responseMessage.Content;
+
+            Task<string> responseBody = responseContent.ReadAsStringAsync();
+
+            string data = responseBody.Result;
+
+            RestResponse rr = new RestResponse((int)statusCode, data);
+
+            Console.WriteLine(rr.ToString());
+
+            Root rt=JsonConvert.DeserializeObject<Root>(rr.ResponseData);
+
+            if (rr.StatusCode == 200)
+            {
+                Console.WriteLine("id : "+rt.data.id.ToString());
+                Console.WriteLine("email : " + rt.data.email.ToString());
+                Console.WriteLine("firstName : " + rt.data.first_name.ToString());
+                Console.WriteLine("Avatar : " + rt.data.avatar.ToString());
+                Console.WriteLine("lastName : " + rt.data.last_name.ToString());
+                Console.WriteLine("url : " + rt.support.url.ToString());
+                Console.WriteLine("text : " + rt.support.text.ToString());
+            }
+            else
+            {
+                Console.WriteLine("Status code is not 200");
+            }
+            
+
+            hc.Dispose();
+        }
+
+        [Test]
+        public void TestDeserializeByJsonResponseList()
+        {
+            HttpRequestMessage rm = new HttpRequestMessage();
+            rm.RequestUri = new Uri(getAllUserUrl);
+            rm.Method = HttpMethod.Get;
+            rm.Headers.Add("Accept", "application/json");
+
+            HttpClient hc = new HttpClient();
+            Task<HttpResponseMessage> hr = hc.SendAsync(rm);
+
+            HttpResponseMessage responseMessage = hr.Result;
+
+            Console.WriteLine(responseMessage.ToString());
+
+            //Status Code
+            HttpStatusCode statusCode = responseMessage.StatusCode;
+
+            Console.WriteLine("Status --> {0}", statusCode);
+
+            Console.WriteLine("Status Code --> {0}", (int)statusCode);
+
+            //Response Data
+            HttpContent responseContent = responseMessage.Content;
+
+            Task<string> responseBody = responseContent.ReadAsStringAsync();
+
+            string data = responseBody.Result;
+
+            RestResponse rr = new RestResponse((int)statusCode, data);
+
+            Console.WriteLine(rr.ToString());
+
+            var model = JsonConvert.DeserializeObject<RootList>(rr.ResponseData);
+
+            // List<RootList> rt = JsonConvert.DeserializeObject<List<RootList>>(rr.ResponseData);
+
+            if (rr.StatusCode == 200)
+            {
+                for(int i=0;i<Convert.ToInt32(model.per_page.ToString());i++)
+                { 
+                Console.WriteLine("First Name: {0} || Last Name: {1} || Email: {2}", model.data[i].first_name.ToString(), model.data[i].last_name.ToString(), model.data[i].email.ToString());
+                }
+            }
             hc.Dispose();
         }
     }

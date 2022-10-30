@@ -13,25 +13,25 @@ namespace NUnitExampleProject.TestFiles
 {
     public class Loginfb
     {
-
-
-        IWebDriver driver;
         [SetUp]
         public void Setup()
         {
-            driver = new ChromeDriver();
-            driver.Manage().Window.Maximize();
+            var chromeOptions = new ChromeOptions();
+            chromeOptions.AddUserProfilePreference("browser_version", "67");
+            chromeOptions.AddArguments("incognito");
+            chromeOptions.AddUserProfilePreference("intl.accept_languages", "en");
+            chromeOptions.AddUserProfilePreference("disable-popup-blocking", "true");
+            PropertiesCollections.driver = new ChromeDriver(chromeOptions);
+            PropertiesCollections.driver.Manage().Window.Maximize();
+            PropertiesCollections.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(20);
         }
 
         [Test]
         public void fb()
         {
-            driver.Navigate().GoToUrl("https://www.facebook.com/");
+            PropertiesCollections.driver.Navigate().GoToUrl("https://www.facebook.com/");
             FbObject fb = new FbObject();
-            //FbObject fb = new FbObject(PageFactory);
             fb.TestLogin("abdullahahmadkhan@yahoo.in");
-
-
         }  
         }
 }

@@ -8,11 +8,14 @@ using OpenQA.Selenium;
 using NUnitExampleProject.Utilities;
 using NUnitExampleProject.PageObject;
 using SeleniumExtras.PageObjects;
+using OpenQA.Selenium.Support.UI;
+using SeleniumExtras.WaitHelpers;
 
 namespace NUnitExampleProject.TestFiles
 {
     public class Loginfb
     {
+        
         [SetUp]
         public void Setup()
         {
@@ -24,6 +27,7 @@ namespace NUnitExampleProject.TestFiles
             PropertiesCollections.driver = new ChromeDriver(chromeOptions);
             PropertiesCollections.driver.Manage().Window.Maximize();
             PropertiesCollections.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(20);
+            
         }
 
         [Test]
@@ -31,7 +35,20 @@ namespace NUnitExampleProject.TestFiles
         {
             PropertiesCollections.driver.Navigate().GoToUrl("https://www.facebook.com/");
             FbObject fb = new FbObject();
-            fb.TestLogin("abdullahahmadkhan@yahoo.in");
+            fb.TestLogin("abdullahahmadkhan@yahoo.in","Test@123");
+            WebDriverWait wait = new WebDriverWait(PropertiesCollections.driver, TimeSpan.FromSeconds(20));
+            wait.Until(ExpectedConditions.ElementExists(By.XPath("//div[@class='_9ay7']")));
+
+            string s = fb.Gettexterror();
+            Console.WriteLine(s);
+            WebDriverWait wait1 = new WebDriverWait(PropertiesCollections.driver, TimeSpan.FromSeconds(20));
+            int length=s.Length;
+            Console.WriteLine("Character Count is :"+length);
+
+            char ch = 'a   ';
+            int count = s.Split(ch).Length - 1;
+            Console.WriteLine("Total count of 'a' in a given string is : "+count);
+
         }  
         }
 }

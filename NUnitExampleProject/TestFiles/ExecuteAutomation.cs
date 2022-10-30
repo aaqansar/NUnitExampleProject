@@ -52,6 +52,7 @@ namespace NUnitExampleProject.TestFiles
 
                 //Calling Method of EAPage to Perform Action
                 eAPageObject.FillUserForm(lib.ReadData(1, "Initial"), lib.ReadData(1, "FirstName"), lib.ReadData(1, "MiddleName"), lib.ReadData(1, "Title"));
+
                 Console.WriteLine("The Value for my Initial is " + eAPageObject.GetTextFromFirstTextBox());
                 Console.WriteLine("The Value for my Title is " + eAPageObject.GetTextFromDDLTitle());
                 Console.WriteLine("Test Passed for Set and Get  Method");

@@ -41,14 +41,18 @@ namespace NUnitExampleProject.TestFiles
 
             string s = fb.Gettexterror();
             Console.WriteLine(s);
-            WebDriverWait wait1 = new WebDriverWait(PropertiesCollections.driver, TimeSpan.FromSeconds(20));
             int length=s.Length;
             Console.WriteLine("Character Count is :"+length);
 
-            char ch = 'a   ';
+            char ch = 'a';
             int count = s.Split(ch).Length - 1;
             Console.WriteLine("Total count of 'a' in a given string is : "+count);
 
-        }  
         }
+
+        
+    }
+
+
 }
+

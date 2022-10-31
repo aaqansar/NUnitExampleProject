@@ -45,7 +45,17 @@ namespace NUnitExampleProject.TestFiles
             Console.WriteLine("Character Count is :"+length);
 
             char ch = 'a';
-            int count = s.Split(ch).Length - 1;
+            int count = 0;
+            foreach (char c in s)
+            {
+
+                if (c == ch)
+                {
+
+                    count++;
+                }
+
+            }
             Console.WriteLine("Total count of 'a' in a given string is : "+count);
 
         }

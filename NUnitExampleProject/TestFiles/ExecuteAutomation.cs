@@ -82,7 +82,6 @@ namespace NUnitExampleProject.TestFiles
                 eAPageObject = lpObject.Login(lib.ReadData(1, "UserName"), lib.ReadData(1, "Password"));
                 eAPageObject.CheckMarkLanguageByMouseClick();
                 eAPageObject.CheckMarkLanguageByClick();
-
                 Console.WriteLine("Test Passed for MouseClick Method");
                 Thread.Sleep(2000);
             }

@@ -48,13 +48,10 @@ namespace NUnitExampleProject.TestFiles
             int count = 0;
             foreach (char c in s)
             {
-
                 if (c == ch)
                 {
-
                     count++;
                 }
-
             }
             Console.WriteLine("Total count of 'a' in a given string is : "+count);
 

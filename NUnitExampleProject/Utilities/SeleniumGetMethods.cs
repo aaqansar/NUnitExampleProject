@@ -16,6 +16,11 @@ namespace NUnitExampleProject.Utilities
             return element.GetAttribute("value");
         }
 
+        public static string GetTextFromDiv(this IWebElement element)
+        {
+            return element.Text;
+        }
+
         public static string GetCurrentWindowName()
         {
             return PropertiesCollections.driver.CurrentWindowHandle;

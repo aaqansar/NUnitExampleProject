@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using OpenQA.Selenium.DevTools.V102.Page;
 using System.Net;
 
 namespace NUnitExampleProject.TestFiles

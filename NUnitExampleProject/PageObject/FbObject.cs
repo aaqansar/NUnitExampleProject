@@ -15,8 +15,6 @@ namespace NUnitExampleProject.PageObject
 {
     internal class FbObject
     {
-        private IWebDriver driver;
-
         public FbObject()
         {
             PageFactory.InitElements(PropertiesCollections.driver, this);
@@ -35,13 +33,11 @@ namespace NUnitExampleProject.PageObject
         [FindsBy(How = How.XPath, Using = "//div[@class='_9ay7']")]
         public IWebElement errorMessage { get; set; }
 
-        public void TestLogin(string email,String pass)
+        public void TestLogin(string email,string pass)
         {
             txtemail.EnterText(email);
             txtPassword.EnterText(pass);
-            btnFBLogin.DoClick();
-
-            
+            btnFBLogin.DoClick();     
         }
 
         public string Gettexterror()

@@ -1,7 +1,6 @@
 ﻿using Newtonsoft.Json;
 using NUnitExampleProject.Model;
 using NUnitExampleProject.Model.JsonModel;
-using OpenQA.Selenium.DevTools.V102.Debugger;
 using System;
 using System.Collections.Generic;
 using System.IO;

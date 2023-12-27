@@ -32,39 +32,41 @@ namespace NUnitExampleProject.TestFiles
             IList<IWebElement> le = driver.FindElements(By.TagName("a"));
             foreach (IWebElement ele in le)
             {
-
-
-                Console.WriteLine(ele.Text);
                 string hrefUrl = ele.GetAttribute("href");
                 Console.WriteLine(hrefUrl);
-                if (hrefUrl.Contains("tel") || hrefUrl.Contains("email") || hrefUrl.Contains("@"))
+                if (hrefUrl != null)
                 {
-
-                }
-                else
-                {
-                    var k = IsLinkWorking(hrefUrl);
-                    if (k != null)
+                    if (hrefUrl.Contains("tel"))
                     {
+                        Console.WriteLine(hrefUrl + " This contain tel , email or @, hence skipped");
+                    }
+                    else if (hrefUrl.Contains("email"))
+                    {
+                        Console.WriteLine(hrefUrl + " This contain email, hence skipped");
+                    }
+                    else if (hrefUrl.Contains('@'))
+                    {
+                        Console.WriteLine(hrefUrl + " This contain @, hence skipped");
+                    }
+
+                    else
+                    {
+                        var k = isLinkWorking(hrefUrl);
+
                         if (k == true)
                         {
-                            Console.WriteLine(hrefUrl + "This is valid URL as response came " + k);
+                            Console.WriteLine(hrefUrl + " This is valid URL as response came " + k);
                         }
                         else
                         {
-                            Console.WriteLine(hrefUrl + "This is invalid URL as response came " + k);
+                            Console.WriteLine(hrefUrl + " This is invalid URL as response came " + k);
                         }
-                    }
-                    else
-                    {
-                        Console.WriteLine("Exception");
                     }
                 }
             }
 
 
-
-            bool IsLinkWorking(string url)
+            bool isLinkWorking(string url)
             {
 
                 var webclient = new HttpClient();
